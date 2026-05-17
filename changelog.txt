@@ -1,0 +1,21 @@
+Day 1 (unreleased): 
+        - Started Developing the Dungeon Crawler Game
+        - Made functions (unfinished):
+
+        . void choosePlayerName
+        . void lobbyArea
+        . void checkStats
+        . void checkInventory
+        . void shopArea
+        . void caveArea
+
+        - Started developing a "Already Purchased Checker" which will later be in voidedVerification function.
+
+Day 2 (v0.1):
+        - Started developing caveArea
+        - Added voidedVerification function, that checks whether an item was already purchased.
+        
+        - Changed choosePlayerName function, which now lets you choose character's name instead of picking one of 5 premade names
+
+        - Fixed many logic issues
+        - Fixed menu navigation problem by removing function calls at the end of each function, that caused unexpected code behaviour. Replaced by making each function menu in a while loop, which is stable.
