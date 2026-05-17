@@ -2,13 +2,13 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Debug
+## Release
 ProjectName            :=DungeonCrawler
-ConfigurationName      :=Debug
-WorkspaceConfiguration :=Debug
+ConfigurationName      :=Release
+WorkspaceConfiguration :=Release
 WorkspacePath          :=/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1
 ProjectPath            :=/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler
-IntermediateDirectory  :=../build-$(WorkspaceConfiguration)/DungeonCrawler
+IntermediateDirectory  :=../$(ProjectName)/build-Release/obj
 OutDir                 :=$(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
@@ -29,9 +29,9 @@ OutputSwitch           :=-o
 LibraryPathSwitch      :=-L
 PreprocessorSwitch     :=-D
 SourceSwitch           :=-c 
-OutputDirectory        :=/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/build-$(WorkspaceConfiguration)/bin
-OutputFile             :=../build-$(WorkspaceConfiguration)/bin/$(ProjectName)
-Preprocessors          :=
+OutputDirectory        :=/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/$(ProjectName)/build-Release/bin
+OutputFile             :=../$(ProjectName)/build-Release/bin/$(ProjectName)
+Preprocessors          :=$(PreprocessorSwitch)NDEBUG 
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
 PreprocessOnlySwitch   :=-E
@@ -52,8 +52,8 @@ LibPath                := $(LibraryPathSwitch).
 AR       := /usr/bin/ar rcu
 CXX      := /usr/bin/g++-13
 CC       := /usr/bin/gcc-13
-CXXFLAGS :=  -gdwarf-2 -O0 -Wall $(Preprocessors)
-CFLAGS   :=  -gdwarf-2 -O0 -Wall $(Preprocessors)
+CXXFLAGS :=  -O2 -Wall $(Preprocessors)
+CFLAGS   :=  -O2 -Wall $(Preprocessors)
 ASFLAGS  := 
 AS       := /usr/bin/as
 
