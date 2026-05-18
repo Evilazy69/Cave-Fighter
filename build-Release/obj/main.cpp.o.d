@@ -1,1 +1,2 @@
-../DungeonCrawler/build-Release/obj/main.cpp.o: main.cpp
+../DungeonCrawler/build-Release/obj/main.cpp.o: main.cpp game.h
+game.h:

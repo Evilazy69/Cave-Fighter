@@ -3,6 +3,11 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="stats.cpp"/>
+    <File Name="mainCaveArea.cpp"/>
+    <File Name="shopArea.cpp"/>
+    <File Name="inventory.cpp"/>
+    <File Name="game.h"/>
     <File Name="main.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">

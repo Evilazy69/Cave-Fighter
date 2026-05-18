@@ -19,3 +19,8 @@ Day 2 (v0.1):
 
         - Fixed many logic issues
         - Fixed menu navigation problem by removing function calls at the end of each function, that caused unexpected code behaviour. Replaced by making each function menu in a while loop, which is stable.
+      (v0.11):
+        - Added build-Debug, build-Release, .exe binary
+Day 3 (v0.12):
+        - Almost finished inventory system (Item interaction, weapon equipment)
+        - Made multifile system, each cpp file for different kind of functions

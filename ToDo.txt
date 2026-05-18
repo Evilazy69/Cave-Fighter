@@ -1,0 +1,3 @@
+Make items in Inventory usable - In progress
+Make that only one weapon item can be equiped - later
+Implement Item selling in shop - later

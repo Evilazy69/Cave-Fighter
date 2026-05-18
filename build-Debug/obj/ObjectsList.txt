@@ -1,1 +1,1 @@
-../DungeonCrawler/build-Debug/obj/main.cpp.o
+../DungeonCrawler/build-Debug/obj/mainCaveArea.cpp.o ../DungeonCrawler/build-Debug/obj/shopArea.cpp.o ../DungeonCrawler/build-Debug/obj/inventory.cpp.o ../DungeonCrawler/build-Debug/obj/stats.cpp.o ../DungeonCrawler/build-Debug/obj/main.cpp.o
