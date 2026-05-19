@@ -1,7 +1,6 @@
 #include "game.h"
 
-void shopArea(Player &player, vector<string> &itemlist, vector<string> &shopitems){
-	shopitems = {"Health potion", "Bowie Knife", "Machete", "Sword"};
+void shopArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped){
 	bool alreadyPurchased = false;
 	
 	cout << "(----------------------------------------------------------)" << "\n\n";
@@ -45,6 +44,7 @@ void shopArea(Player &player, vector<string> &itemlist, vector<string> &shopitem
 					}
 					if (player.balance >= 50){
 						player.balance -= 50;
+						isEquipped.push_back(false);
 						itemlist.push_back(shopitems.at(1));
 						cout << '\n' << "You purchased a " << shopitems.at(1) << '\n';
 					}
@@ -59,6 +59,7 @@ void shopArea(Player &player, vector<string> &itemlist, vector<string> &shopitem
 					}
 					if (player.balance >= 100){
 						player.balance -= 100;
+						isEquipped.push_back(false);
 						itemlist.push_back(shopitems.at(2));
 						cout << '\n' << "You purchased a " << shopitems.at(2) << '\n';
 					}
@@ -73,6 +74,7 @@ void shopArea(Player &player, vector<string> &itemlist, vector<string> &shopitem
 					}
 					if (player.balance >= 250){
 						player.balance -= 250;
+						isEquipped.push_back(false);
 						itemlist.push_back(shopitems.at(3));
 						cout << '\n' << "You purchased a " << shopitems.at(3) << '\n';
 					}

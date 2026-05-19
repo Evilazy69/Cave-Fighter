@@ -20,13 +20,18 @@ struct Player{
 	int damage;
 };
 
+void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int &eraseIndex);
 void choosePlayerName(Player &player);
-void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped);
-void checkStats(Player &player, vector<string> &itemlist);
-void checkInventory(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped);
-void shopArea(Player &player, vector<string> &itemlist, vector<string> &shopitems);
+
+void checkInventory(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int &eraseIndex);
+void inventoryInteraction(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, string &inventorySlot, int &eraseIndex);
+
+void shopArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped);
 void voidedValidation(vector<string> &itemlist, string &itemName, bool &alreadyPuchased);
-void mainCaveArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped);
+
+void mainCaveArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int eraseIndex);
 void clayCaveArea(Player &player, vector<string> &itemlist, vector<string> &shopitems); // coming soon
+
+void checkStats(Player &player, vector<string> &itemlist);
 
 #endif

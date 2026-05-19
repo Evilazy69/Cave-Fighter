@@ -1,3 +1,8 @@
-Make items in Inventory usable - In progress
-Make that only one weapon item can be equiped - later
+Make items in Inventory usable - Done (19/05/2026)
+Make that only one weapon item can be equiped - Done (19/05/2026)
+
+Fix issue with the isEquipped iterator depending on itemlist for loop - later
+
 Implement Item selling in shop - later
+Implement Levels - later
+Implement inventory capacity and its upgrade

@@ -4,18 +4,20 @@ int main(){
 	Player player;
 	player.health = 100;
 	player.damage = 10;
-	player.balance = 150;
+	player.balance = 1000;
 	
 	vector<string> itemlist;
-	vector<string> shopitems;
-	vector<bool> isEquipped = {false, false, false}; // inventory.cpp
+	vector<string> shopitems = {"Health potion", "Bowie Knife", "Machete", "Sword"};
+	
+	vector<bool> isEquipped; // inventory.cpp
+	int eraseIndex; // inventory.cpp
 
 	char option;
 
 	while(option != 'x'){	
 		cout << '\n' << "....................................................." << "\n\n";
 		
-		cout << "Welcome to the Dungeon Crawler Game" << "\n\n";
+		cout << "Welcome to the Dungeon Crawler Game v0.2" << "\n\n";
 
 		cout << "~~~ Main menu ~~~" << "\n\n";
 
@@ -32,16 +34,16 @@ int main(){
 		switch(option){
 			case '1':
 					choosePlayerName(player);
-					mainArea(player, itemlist, shopitems, isEquipped);
+					mainArea(player, itemlist, shopitems, isEquipped, eraseIndex);
 					break;
 			case '2':
 					break;
 			default:
-					cout << "Invalid option\n";
+					break;
 		}
 	}
 }
-void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped){
+void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int &eraseIndex){
 	string area = " -- Main Area --";
 	
 	char option;
@@ -65,17 +67,17 @@ void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitem
 		
 		switch(option){
 			case '1':
-					shopArea(player, itemlist, shopitems);
+					shopArea(player, itemlist, shopitems, isEquipped);
 					break;
 			case '2':
 					cout << '\n' << "***... Entering the underground world ...***" << '\n';
-					mainCaveArea(player, itemlist, shopitems, isEquipped);
+					mainCaveArea(player, itemlist, shopitems, isEquipped, eraseIndex);
 					break;
 			case '3':
 					checkStats(player, itemlist);
 					break;
 			case '4':
-					checkInventory(player, itemlist, shopitems, isEquipped);
+					checkInventory(player, itemlist, shopitems, isEquipped, eraseIndex);
 					break;
 			default:
 					break;

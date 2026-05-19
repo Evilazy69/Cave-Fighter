@@ -14,7 +14,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Evilmint
-Date                   :=18/05/26
+Date                   :=19/05/26
 CodeLitePath           :=/home/evilmint/.codelite
 MakeDirCommand         :=mkdir -p
 LinkerName             :=/usr/bin/g++-13
@@ -62,7 +62,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/mainCaveArea.cpp$(ObjectSuffix) $(IntermediateDirectory)/shopArea.cpp$(ObjectSuffix) $(IntermediateDirectory)/inventory.cpp$(ObjectSuffix) $(IntermediateDirectory)/stats.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/inventory.cpp$(ObjectSuffix) $(IntermediateDirectory)/shopArea.cpp$(ObjectSuffix) $(IntermediateDirectory)/mainCaveArea.cpp$(ObjectSuffix) $(IntermediateDirectory)/stats.cpp$(ObjectSuffix) 
 
 
 
@@ -93,21 +93,13 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/mainCaveArea.cpp$(ObjectSuffix): mainCaveArea.cpp $(IntermediateDirectory)/mainCaveArea.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler/mainCaveArea.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/mainCaveArea.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/mainCaveArea.cpp$(DependSuffix): mainCaveArea.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/mainCaveArea.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/mainCaveArea.cpp$(DependSuffix) -MM mainCaveArea.cpp
+$(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM main.cpp
 
-$(IntermediateDirectory)/mainCaveArea.cpp$(PreprocessSuffix): mainCaveArea.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/mainCaveArea.cpp$(PreprocessSuffix) mainCaveArea.cpp
-
-$(IntermediateDirectory)/shopArea.cpp$(ObjectSuffix): shopArea.cpp $(IntermediateDirectory)/shopArea.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler/shopArea.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/shopArea.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/shopArea.cpp$(DependSuffix): shopArea.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/shopArea.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/shopArea.cpp$(DependSuffix) -MM shopArea.cpp
-
-$(IntermediateDirectory)/shopArea.cpp$(PreprocessSuffix): shopArea.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/shopArea.cpp$(PreprocessSuffix) shopArea.cpp
+$(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
 
 $(IntermediateDirectory)/inventory.cpp$(ObjectSuffix): inventory.cpp $(IntermediateDirectory)/inventory.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler/inventory.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/inventory.cpp$(ObjectSuffix) $(IncludePath)
@@ -117,6 +109,22 @@ $(IntermediateDirectory)/inventory.cpp$(DependSuffix): inventory.cpp
 $(IntermediateDirectory)/inventory.cpp$(PreprocessSuffix): inventory.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/inventory.cpp$(PreprocessSuffix) inventory.cpp
 
+$(IntermediateDirectory)/shopArea.cpp$(ObjectSuffix): shopArea.cpp $(IntermediateDirectory)/shopArea.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler/shopArea.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/shopArea.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/shopArea.cpp$(DependSuffix): shopArea.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/shopArea.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/shopArea.cpp$(DependSuffix) -MM shopArea.cpp
+
+$(IntermediateDirectory)/shopArea.cpp$(PreprocessSuffix): shopArea.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/shopArea.cpp$(PreprocessSuffix) shopArea.cpp
+
+$(IntermediateDirectory)/mainCaveArea.cpp$(ObjectSuffix): mainCaveArea.cpp $(IntermediateDirectory)/mainCaveArea.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler/mainCaveArea.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/mainCaveArea.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/mainCaveArea.cpp$(DependSuffix): mainCaveArea.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/mainCaveArea.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/mainCaveArea.cpp$(DependSuffix) -MM mainCaveArea.cpp
+
+$(IntermediateDirectory)/mainCaveArea.cpp$(PreprocessSuffix): mainCaveArea.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/mainCaveArea.cpp$(PreprocessSuffix) mainCaveArea.cpp
+
 $(IntermediateDirectory)/stats.cpp$(ObjectSuffix): stats.cpp $(IntermediateDirectory)/stats.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler/stats.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/stats.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/stats.cpp$(DependSuffix): stats.cpp
@@ -124,14 +132,6 @@ $(IntermediateDirectory)/stats.cpp$(DependSuffix): stats.cpp
 
 $(IntermediateDirectory)/stats.cpp$(PreprocessSuffix): stats.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/stats.cpp$(PreprocessSuffix) stats.cpp
-
-$(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/evilmint/Documents/Dev/cpp-learning/workspaces/MyWorkspace1/DungeonCrawler/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM main.cpp
-
-$(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

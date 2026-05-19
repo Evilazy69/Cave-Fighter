@@ -1,6 +1,6 @@
 #include "game.h"
 
-void mainCaveArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped){
+void mainCaveArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int eraseIndex){
 	srand(time(NULL));
 	char option;
 	
@@ -21,7 +21,7 @@ void mainCaveArea(Player &player, vector<string> &itemlist, vector<string> &shop
 			case '1':
 					break;
 			case '2':
-					checkInventory(player, itemlist, shopitems, isEquipped);
+					checkInventory(player, itemlist, shopitems, isEquipped, eraseIndex);
 					break;
 			default:
 					break;

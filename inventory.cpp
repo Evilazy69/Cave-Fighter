@@ -1,6 +1,6 @@
 #include "game.h"
 
-void checkInventory(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped){
+void checkInventory(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int &eraseIndex){
 	char option;
 	
 	while (option != 'x'){
@@ -11,8 +11,18 @@ void checkInventory(Player &player, vector<string> &itemlist, vector<string> &sh
 			cout << "Inventory is empty :(" << '\n';
 		}
 		
-		for (unsigned int i = 0; i < itemlist.size(); i++){
-			cout << '[' << i+1 << "] " << itemlist.at(i) << '\n';
+		for (unsigned int i = 0; i < itemlist.size(); i++){ 
+			if (itemlist.at(i) == shopitems.at(0)){
+				cout << '[' << i+1 << "] " << itemlist.at(i) << '\n';
+			}
+			if (itemlist.at(i) == shopitems.at(1) || itemlist.at(i) == shopitems.at(2) || itemlist.at(i) == shopitems.at(3)){
+				if (isEquipped.at(i) == true){
+					cout << '[' << i+1 << "] " << itemlist.at(i) << " (Equipped)" << '\n';
+				}
+				else{
+					cout << '[' << i+1 << "] " << itemlist.at(i) << " (Unequipped)" << '\n';
+				}
+			}
 		}
 		cout << '\n' << "|-------------------------------------------|" << "\n\n";
 
@@ -21,14 +31,47 @@ void checkInventory(Player &player, vector<string> &itemlist, vector<string> &sh
 		
 		switch(option){
 			case '1':
-					if (itemlist.at(0) == shopitems.at(0)){
+					inventoryInteraction(player, itemlist, shopitems, isEquipped, itemlist.at(0), eraseIndex = 0);
+					break;
+			case '2': 
+					inventoryInteraction(player, itemlist, shopitems, isEquipped, itemlist.at(1), eraseIndex = 1);
+					break;
+			case '3': 
+					inventoryInteraction(player, itemlist, shopitems, isEquipped, itemlist.at(2), eraseIndex = 2);
+					break;
+			case '4': 
+					inventoryInteraction(player, itemlist, shopitems, isEquipped, itemlist.at(3), eraseIndex = 3);
+					break;
+			case '5': 
+					inventoryInteraction(player, itemlist, shopitems, isEquipped, itemlist.at(4), eraseIndex = 4);
+					break;
+			case '6': 
+					inventoryInteraction(player, itemlist, shopitems, isEquipped, itemlist.at(5), eraseIndex = 5);
+					break;
+			case '7': 
+					inventoryInteraction(player, itemlist, shopitems, isEquipped, itemlist.at(6), eraseIndex = 6);
+					break;
+			case '8': 
+					inventoryInteraction(player, itemlist, shopitems, isEquipped, itemlist.at(7), eraseIndex = 7);
+					break;
+			default:
+					break;
+					
+		}
+	}
+}
+void inventoryInteraction(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, string &inventorySlot, int &eraseIndex){
+
+	
+					if (inventorySlot == shopitems.at(0)){	// inventorySlot string is created to represent each itemlist vector element
 						if (!itemlist.empty()){
-							itemlist.erase(itemlist.begin());
+							itemlist.erase(itemlist.begin() + eraseIndex);
 						}
 						player.health += 25;
 						cout << "You drank a health potion" << '\n';
 					}
-					else if (itemlist.at(0) == shopitems.at(1)){
+					else if (inventorySlot == shopitems.at(1)){
+						auto iterator = find(isEquipped.begin(), isEquipped.end(), true);
 						char option;
 						
 						while (option != 'x'){
@@ -40,7 +83,13 @@ void checkInventory(Player &player, vector<string> &itemlist, vector<string> &sh
 								cin >> option;
 								
 								switch(option){
+									
 									case '1':
+											if (iterator != isEquipped.end()){
+												cout << '\n' << "You can only equip one weapon at a time" << '!' << "\n\n";
+												continue;
+											}
+											
 											isEquipped.at(0) = true;
 											player.damage += 15;
 											break;
@@ -70,7 +119,8 @@ void checkInventory(Player &player, vector<string> &itemlist, vector<string> &sh
 							}
 						}
 					}
-					else if (itemlist.at(0) == shopitems.at(2)){
+					else if (inventorySlot == shopitems.at(2)){
+						auto iterator = find(isEquipped.begin(), isEquipped.end(), true);
 						char option;
 						
 						while (option != 'x'){
@@ -83,6 +133,11 @@ void checkInventory(Player &player, vector<string> &itemlist, vector<string> &sh
 								
 								switch(option){
 									case '1':
+											if (iterator != isEquipped.end()){
+												cout << '\n' << "You can only equip one weapon at a time" << '!' << "\n\n";
+												continue;
+											}
+											
 											isEquipped.at(1) = true;
 											player.damage += 15;
 											break;
@@ -112,7 +167,8 @@ void checkInventory(Player &player, vector<string> &itemlist, vector<string> &sh
 							}
 						}
 					}
-					else if (itemlist.at(0) == shopitems.at(3)){
+					else if (inventorySlot == shopitems.at(3)){
+						auto iterator = find(isEquipped.begin(), isEquipped.end(), true);
 						char option;
 						
 						while (option != 'x'){
@@ -125,6 +181,11 @@ void checkInventory(Player &player, vector<string> &itemlist, vector<string> &sh
 								
 								switch(option){
 									case '1':
+											if (iterator != isEquipped.end()){
+												cout << '\n' << "You can only equip one weapon at a time" << '!' << "\n\n";
+												continue;
+											}
+											
 											isEquipped.at(2) = true;
 											player.damage += 15;
 											break;
@@ -155,9 +216,6 @@ void checkInventory(Player &player, vector<string> &itemlist, vector<string> &sh
 						}
 					}
 					else{
-						cout << "You cannot equip something that doesn't exist :|" << '\n';
+						cout << "You cannot use/equip something that doesn't exist :|" << '\n';
 					}
-					break;	
-		}
-	}
 }
