@@ -1,23 +1,51 @@
-#include "game.h"
+#include "game.h"  
 
 int main(){
 	Player player;
 	player.health = 100;
 	player.damage = 10;
 	player.balance = 1000;
+	player.playerPosition = 0;
 	
-	vector<string> itemlist;
-	vector<string> shopitems = {"Health potion", "Bowie Knife", "Machete", "Sword"};
-	
-	vector<bool> isEquipped; // inventory.cpp
 	int eraseIndex; // inventory.cpp
+	
+	Items healthPotion;
+	healthPotion.name = "Health Potion";
+	healthPotion.price = 25;
+	healthPotion.isEquipped = false;
+	healthPotion.isConsumable = true;
+	healthPotion.quantity = 0;
+	
+	Items bowieKnife;
+	bowieKnife.name = "Bowie Knife";
+	bowieKnife.price = 100;
+	bowieKnife.isEquipped = false;
+	bowieKnife.isConsumable = true;
+	
+	Items machete;
+	machete.name = "Machete";
+	machete.price = 250;
+	machete.isEquipped = false;
+	machete.isConsumable = true;
+	
+	Items sword;
+	sword.name = "Sword";
+	sword.price = 500;
+	sword.isEquipped = false;
+	sword.isConsumable = true;
+	
+	vector<Items> shopitems = {healthPotion, bowieKnife, machete, sword};
+	vector<Items> inventory;
+	
+	
+	
 
 	char option;
-
+	
 	while(option != 'x'){	
 		cout << '\n' << "....................................................." << "\n\n";
 		
-		cout << "Welcome to the Dungeon Crawler Game v0.2" << "\n\n";
+		cout << "Welcome to the Dungeon Crawler Game v0.14" << "\n\n";
 
 		cout << "~~~ Main menu ~~~" << "\n\n";
 
@@ -34,7 +62,7 @@ int main(){
 		switch(option){
 			case '1':
 					choosePlayerName(player);
-					mainArea(player, itemlist, shopitems, isEquipped, eraseIndex);
+					mainArea(player, inventory, shopitems, eraseIndex);
 					break;
 			case '2':
 					break;
@@ -43,8 +71,7 @@ int main(){
 		}
 	}
 }
-void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int &eraseIndex){
-	string area = " -- Main Area --";
+void mainArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
 	
 	char option;
 	
@@ -52,7 +79,7 @@ void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitem
 	
 		cout << "..!..!!..!!!...!.!!.!!.!!!..!!!.!!!.!!!!.!!.!!.!!." << "\n\n";
 		cout << "Health: " << player.health << '\n';
-		cout << "Gold: " << player.balance << "\n\n";
+		cout << "Coins: " << player.balance << "\n\n";
 		
 		cout << "[1] Enter Shop" << '\n';
 		cout << "[2] Enter Cave" << '\n';
@@ -67,17 +94,17 @@ void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitem
 		
 		switch(option){
 			case '1':
-					shopArea(player, itemlist, shopitems, isEquipped);
+					shopArea(player, inventory, shopitems);
 					break;
 			case '2':
 					cout << '\n' << "***... Entering the underground world ...***" << '\n';
-					mainCaveArea(player, itemlist, shopitems, isEquipped, eraseIndex);
+					mainCaveArea(player, inventory, shopitems, eraseIndex);
 					break;
 			case '3':
-					checkStats(player, itemlist);
+					checkStats(player, inventory);
 					break;
 			case '4':
-					checkInventory(player, itemlist, shopitems, isEquipped, eraseIndex);
+					checkInventory(player, inventory, shopitems, eraseIndex);
 					break;
 			default:
 					break;
@@ -132,3 +159,7 @@ void choosePlayerName(Player &player){
 	char option;
 	
 */
+
+
+
+			 // {Item healthPotion, Item BowieKnife, Item Machete, Item Sword};

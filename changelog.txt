@@ -30,3 +30,7 @@ Day 4 (v0.13):
         - Fixed health potion bug that broke itemlist when consumed (fixed by adding an eraseIndex that adds to itemlist.erase(itemlist.begin()) a corresponding index depending on which itemlist slot is the potion currently located
         - Changed vector<bool> isEquipped size from 3 to undefined (Now the size of isEquipped will be expanded by 1, each time a corresponding item is bought
         - Added an iterator that checks for true values inside isEquipped, thank to that I implemented a system that allows to equip only one weapon at a time
+Day 5 (v0.14)
+        - A massive rework of inventory system was done. I noticed that having multiple unrelated vectors and variables becomes more and more unstable and unreliable each time I expanded inventory system's functionnality, therefore I       I added a struct that assembles variables and vectors related to items from the shop.
+        - Now potions will be stacked instead of being a separate element of inventory for each potion, current limit of having potions at once is 5
+        - Started developing first cave location

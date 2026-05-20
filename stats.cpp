@@ -1,6 +1,6 @@
 #include "game.h"
 
-void checkStats(Player &player, vector<string> &itemlist){
+void checkStats(Player &player, vector<Items> &inventory){
 	cout << '\n' << "|-------------------------------------------|" << "\n\n";
 	cout << player.name << "'s statistics" << "\n\n";
 	
@@ -15,5 +15,4 @@ void checkStats(Player &player, vector<string> &itemlist){
 		cout << '\n' << "[x] - Back to Main Area" << '\n';
 		cin >> option;
 	}
-
 }

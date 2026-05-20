@@ -17,21 +17,42 @@ struct Player{
 
 	int health;
 	int balance;
+	
 	int damage;
+	
+	int playerPosition;
+};
+struct Enemy{
+	
+	string name;
+	
+	int health;
+	int damage;
+	int enemyNumber;
+};
+struct Items{
+	
+	string name;
+	
+	int price;
+	int quantity;
+	
+	bool isEquipped;
+	bool isConsumable;
 };
 
-void mainArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int &eraseIndex);
+void mainArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void choosePlayerName(Player &player);
 
-void checkInventory(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int &eraseIndex);
-void inventoryInteraction(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, string &inventorySlot, int &eraseIndex);
+void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
+void inventoryInteraction(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex);
 
-void shopArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped);
-void voidedValidation(vector<string> &itemlist, string &itemName, bool &alreadyPuchased);
+void shopArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems);
+void voidedValidation(vector<Items> &inventory, string &itemName, bool &alreadyPuchased);
 
-void mainCaveArea(Player &player, vector<string> &itemlist, vector<string> &shopitems, vector<bool> &isEquipped, int eraseIndex);
-void clayCaveArea(Player &player, vector<string> &itemlist, vector<string> &shopitems); // coming soon
+void mainCaveArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int eraseIndex);
+void clayCaveArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex); // coming soon
 
-void checkStats(Player &player, vector<string> &itemlist);
+void checkStats(Player &player, vector<Items> &inventory);
 
 #endif
