@@ -94,12 +94,35 @@ void shopArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems
 	}
 }
 void voidedValidation(vector<Items> &inventory, string &itemName, bool &alreadyPurchased){
-	auto iterator = find_if(inventory.begin(), inventory.end(), [itemName](const Items& i){
-		return i.name == itemName;
-	});
+	auto iterator = find_if(inventory.begin(), inventory.end(),
+		[itemName](const Items &i){
+			return i.name == itemName;
+		}
+	);
 
 	if (iterator != inventory.end()){										// l1 if iterator didn't make it to the end of inventory
 	cout << "You already purchased that item!" << '\n';						// l2 it means that an element of shopitems is already in inventory
 	alreadyPurchased = true;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

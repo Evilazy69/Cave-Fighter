@@ -1,13 +1,25 @@
 #include "game.h"  
 
+mt19937 rng(random_device{}());
+
+float roll(){
+	uniform_real_distribution<float> dist(0.0f, 1.0f);
+	return dist(rng);
+}
+
 int main(){
+	
 	Player player;
 	player.health = 100;
 	player.damage = 10;
 	player.balance = 1000;
 	player.playerPosition = 0;
 	
-	int eraseIndex; // inventory.cpp
+	Enemy caveRat;
+	caveRat.name = "Cave Rat";
+	caveRat.health = 15;
+	caveRat.damage = 10;
+	caveRat.drop = 10;
 	
 	Items healthPotion;
 	healthPotion.name = "Health Potion";
@@ -37,15 +49,14 @@ int main(){
 	vector<Items> shopitems = {healthPotion, bowieKnife, machete, sword};
 	vector<Items> inventory;
 	
-	
+	int eraseIndex; // inventory.cpp
 	
 
 	char option;
 	
 	while(option != 'x'){	
 		cout << '\n' << "....................................................." << "\n\n";
-		
-		cout << "Welcome to the Dungeon Crawler Game v0.14" << "\n\n";
+		cout << "Welcome to the Dungeon Fighter Game v0.15" << "\n\n";		
 
 		cout << "~~~ Main menu ~~~" << "\n\n";
 
@@ -61,8 +72,12 @@ int main(){
 		
 		switch(option){
 			case '1':
+					if (!player.name.empty()){
+						mainArea(player, caveRat, inventory, shopitems, eraseIndex);
+						break;
+					}
 					choosePlayerName(player);
-					mainArea(player, inventory, shopitems, eraseIndex);
+					mainArea(player, caveRat, inventory, shopitems, eraseIndex);
 					break;
 			case '2':
 					break;
@@ -71,11 +86,14 @@ int main(){
 		}
 	}
 }
-void mainArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
+void mainArea(Player &player, Enemy &caveRat, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
 	
 	char option;
 	
 	while (option != 'x'){
+		if (player.health <= 0){
+			break;
+		}
 	
 		cout << "..!..!!..!!!...!.!!.!!.!!!..!!!.!!!.!!!!.!!.!!.!!." << "\n\n";
 		cout << "Health: " << player.health << '\n';
@@ -98,7 +116,7 @@ void mainArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems
 					break;
 			case '2':
 					cout << '\n' << "***... Entering the underground world ...***" << '\n';
-					mainCaveArea(player, inventory, shopitems, eraseIndex);
+					mainCaveArea(player, caveRat, inventory, shopitems, eraseIndex);
 					break;
 			case '3':
 					checkStats(player, inventory);

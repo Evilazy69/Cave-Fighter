@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <random>
 
 using namespace std;
 
@@ -28,7 +29,7 @@ struct Enemy{
 	
 	int health;
 	int damage;
-	int enemyNumber;
+	int drop;
 };
 struct Items{
 	
@@ -41,7 +42,7 @@ struct Items{
 	bool isConsumable;
 };
 
-void mainArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
+void mainArea(Player &player, Enemy &caveRat, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void choosePlayerName(Player &player);
 
 void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
@@ -50,9 +51,11 @@ void inventoryInteraction(Player &player, vector<Items> &inventory, vector<Items
 void shopArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems);
 void voidedValidation(vector<Items> &inventory, string &itemName, bool &alreadyPuchased);
 
-void mainCaveArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int eraseIndex);
-void clayCaveArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex); // coming soon
+void mainCaveArea(Player &player, Enemy &caveRat, vector<Items> &inventory, vector<Items> &shopitems, int eraseIndex);
+void clayCaveArea(Player &player, Enemy &caveRat, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex); // coming soon
 
 void checkStats(Player &player, vector<Items> &inventory);
+
+float roll(); // Random number function
 
 #endif

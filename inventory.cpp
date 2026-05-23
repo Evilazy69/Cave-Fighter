@@ -68,8 +68,15 @@ void inventoryInteraction(Player &player, vector<Items> &inventory, vector<Items
 		else{
 			shopitems.at(0).quantity -= 1;
 		}
-		player.health += 25;
-		cout << "You drank a health potion" << '\n';
+
+		if (player.health >= 100){
+			player.health = 100;
+			cout << "You're already full hp!" << '\n';
+		}
+		else{
+			player.health += 25;
+			cout << "You drank a health potion and restored 25 hp" << '\n';
+		}
 	}
 	else if (inventorySlot.name == shopitems.at(1).name){
 		char option = ' ';

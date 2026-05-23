@@ -34,3 +34,13 @@ Day 5 (v0.14)
         - A massive rework of inventory system was done. I noticed that having multiple unrelated vectors and variables becomes more and more unstable and unreliable each time I expanded inventory system's functionnality, therefore I       I added a struct that assembles variables and vectors related to items from the shop.
         - Now potions will be stacked instead of being a separate element of inventory for each potion, current limit of having potions at once is 5
         - Started developing first cave location
+Day 7 (v0.14.1)
+        - Fixed logic issues with loot chest drop chance conditions
+        - Replaced rand random number generation by a better one (mt19937) which has a much higher randomization quality + updates
+        - Now chests in ClaystoneCave can't be found if player steps back
+Day 8 (v0.15)
+        - Now you can encounter a Cave Rat enemy in Claystone Cave area 
+        - Now if player health reaches 0, a death message will appear and player will be sent back to Main Menu
+        - Now choosePlayerName will only be prompted when the player enters Main Area the first time
+        - Fixed nested loop cin issues by separating input char option variables for different loop layers
+        
