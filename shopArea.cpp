@@ -16,6 +16,8 @@ void shopArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems
 			
 		cout << "|-------------------------------------------|" << "\n\n";
 		
+		cout << "Coins: " << player.balance << "\n\n";
+		
 		cout << "[1]" << shopitems.at(0).name << '\n';
 		cout << "[2]" << shopitems.at(1).name << '\n';
 		cout << "[3]" << shopitems.at(2).name << '\n';

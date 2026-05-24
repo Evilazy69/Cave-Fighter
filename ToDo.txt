@@ -1,7 +1,7 @@
 Make items in Inventory usable - Done (19/05/2026)
 Make that only one weapon item can be equiped - Done (19/05/2026)
+Don't remove health potion from inventory if used and health was full - Done (24/05/2026)
 
-Don't remove health potion from inventory if used and health was full
 Implement Item selling in shop - later
 Implement Levels - later
 Implement inventory capacity and its upgrade

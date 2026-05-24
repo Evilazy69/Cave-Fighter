@@ -12,14 +12,25 @@ int main(){
 	Player player;
 	player.health = 100;
 	player.damage = 10;
-	player.balance = 1000;
+	player.balance = 20;
+	player.lives = 3;
 	player.playerPosition = 0;
 	
 	Enemy caveRat;
 	caveRat.name = "Cave Rat";
 	caveRat.health = 15;
+	caveRat.maxhealth = 15;
 	caveRat.damage = 10;
-	caveRat.drop = 10;
+	caveRat.fdamage = 15;
+	caveRat.drop = 20;
+	
+	Enemy overgrownSpider;
+	overgrownSpider.name = "Overgrown Spider";
+	overgrownSpider.health = 25;
+	overgrownSpider.maxhealth = 25;
+	overgrownSpider.damage = 15;
+	overgrownSpider.fdamage = 25;
+	overgrownSpider.drop = 50;
 	
 	Items healthPotion;
 	healthPotion.name = "Health Potion";
@@ -73,11 +84,11 @@ int main(){
 		switch(option){
 			case '1':
 					if (!player.name.empty()){
-						mainArea(player, caveRat, inventory, shopitems, eraseIndex);
+						mainArea(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex);
 						break;
 					}
 					choosePlayerName(player);
-					mainArea(player, caveRat, inventory, shopitems, eraseIndex);
+					mainArea(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex);
 					break;
 			case '2':
 					break;
@@ -86,13 +97,15 @@ int main(){
 		}
 	}
 }
-void mainArea(Player &player, Enemy &caveRat, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
+void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
 	
 	char option;
 	
 	while (option != 'x'){
-		if (player.health <= 0){
-			break;
+		
+		if (player.health == 0){
+			player.lives--;
+			player.health = 100;
 		}
 	
 		cout << "..!..!!..!!!...!.!!.!!.!!!..!!!.!!!.!!!!.!!.!!.!!." << "\n\n";
@@ -106,7 +119,7 @@ void mainArea(Player &player, Enemy &caveRat, vector<Items> &inventory, vector<I
 		
 		cout << "[x] Main menu" << "\n\n";
 		
-		cout << "..!..!!..!!!...!.!!.!!.!!!..!!!.!!!.!!!!.!!.!!.!!." << "\n\n";
+		cout << "..!..!!..!!!...!.!!.!!.!!!..!!!.!!!.!!!!.!!.!!.!!." << '\n';
 		
 		cin >> option;
 		
@@ -116,7 +129,7 @@ void mainArea(Player &player, Enemy &caveRat, vector<Items> &inventory, vector<I
 					break;
 			case '2':
 					cout << '\n' << "***... Entering the underground world ...***" << '\n';
-					mainCaveArea(player, caveRat, inventory, shopitems, eraseIndex);
+					mainCaveArea(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex);
 					break;
 			case '3':
 					checkStats(player, inventory);

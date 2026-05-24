@@ -43,4 +43,12 @@ Day 8 (v0.15)
         - Now if player health reaches 0, a death message will appear and player will be sent back to Main Menu
         - Now choosePlayerName will only be prompted when the player enters Main Area the first time
         - Fixed nested loop cin issues by separating input char option variables for different loop layers
+Day 9 (v0.16)
+        - Now if player has full hp, he won't be able to use a health potion, also if health goes beyond 100 it'll be set to 100
+        - Now items are only allowed to have one isEquipped in state True (carry only one weapon at a time)
+        - Now when an enemy is killed, the next time it'll be encountered, its health will be restored
+        - Added Overgrown Spider to Claystone Caves!
+        - Fixed enemy encounter probability bugs
+
+
         
