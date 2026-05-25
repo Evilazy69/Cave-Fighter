@@ -49,6 +49,9 @@ Day 9 (v0.16)
         - Now when an enemy is killed, the next time it'll be encountered, its health will be restored
         - Added Overgrown Spider to Claystone Caves!
         - Fixed enemy encounter probability bugs
+Day 10 (v0.17)
+        - Replaced repetetive code with functions
+
 
 
         

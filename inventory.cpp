@@ -1,9 +1,9 @@
 #include "game.h"
 
 void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
-	char option;
+	string option = " ";
 	
-	while (option != 'x'){
+	while (true){
 		cout << '\n' << "|-------------------------------------------|" << "\n\n";
 		cout << player.name << "'s inventory" << "\n\n";
 		
@@ -12,238 +12,141 @@ void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &sho
 		}
 		
 		for (unsigned int i = 0; i < inventory.size(); i++){
-			if (inventory.at(i).isConsumable == true && inventory.at(i).name == shopitems.at(0).name){
+			if (inventory.at(i).type == CONSUMABLE && inventory.at(i).name == shopitems.at(0).name){
 				cout << '[' << i+1 << "] " << inventory.at(i).name << " (" << shopitems.at(0).quantity << "/5)" << '\n';
 			}
 			else if(inventory.at(i).isEquipped == true){
-				cout << '[' << i+1 << "] " << inventory.at(i).name << "(Equipped)" << '\n';
+				cout << '[' << i+1 << "] " << inventory.at(i).name << " (Equipped)" << '\n';
 			}
 			else if(inventory.at(i).isEquipped == false){
-				cout << '[' << i+1 << "] " << inventory.at(i).name << "(Unequipped)" << '\n';
+				cout << '[' << i+1 << "] " << inventory.at(i).name << " (Unequipped)" << '\n';
 			}
 		}
 
 		cout << '\n' << "|-------------------------------------------|" << "\n\n";
 
 		cout << '\n' << "[x] - Close Inventory" << '\n';
-		cin >> option;
 		
-		switch(option){
-			case '1':
-					inventoryInteraction(player, inventory, shopitems, inventory.at(0), eraseIndex = 0);
-					break;
-			case '2': 
-					inventoryInteraction(player, inventory, shopitems, inventory.at(1), eraseIndex = 1);
-					break;
-			case '3': 
-					inventoryInteraction(player, inventory, shopitems, inventory.at(2), eraseIndex = 2);
-					break;
-			case '4': 
-					inventoryInteraction(player, inventory, shopitems, inventory.at(3), eraseIndex = 3);
-					break;
-			case '5': 
-					inventoryInteraction(player, inventory, shopitems, inventory.at(4), eraseIndex = 4);
-					break;
-			case '6': 
-					inventoryInteraction(player, inventory, shopitems, inventory.at(5), eraseIndex = 5);
-					break;
-			case '7': 
-					inventoryInteraction(player, inventory, shopitems, inventory.at(6), eraseIndex = 6);
-					break;
-			case '8': 
-					inventoryInteraction(player, inventory, shopitems, inventory.at(7), eraseIndex = 7);
-					break;
-			default:
-					break;
-					
+		cin >> option;
+		unsigned int opt = 0;
+		
+		if (option == "x") break;
+		
+		try{
+			size_t pos;
+			opt = stoi(option, &pos);
 		}
+		catch (...) {
+			cout << "Inventory slot is a number" << '\n';
+			continue;
+		}
+		
+		
+		if (opt > inventory.size() || opt == 0){
+			if (inventory.empty()){
+				cout << "You cannot chose a slot while inventory is empty" << '\n';
+			}
+			else{
+				cout << "Chose a valid inventory slot" << '\n';
+			}
+			continue;
+		}
+		
+		inventoryInteraction(player, inventory, shopitems, inventory.at(opt-1), eraseIndex = opt-1);
 	}
 }
 void inventoryInteraction(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex){
 	
-	if (inventorySlot.name == shopitems.at(0).name){	// inventorySlot string is created to represent each inventory item
-		
-		if (!inventory.empty() && shopitems.at(0).quantity <= 1){
-			if (player.health < 100){
-				inventory.erase(inventory.begin() + eraseIndex);
-			}
-		}
-		if (player.health >= 100){
-			cout << "You're already full hp!" << '\n';
-			player.health = 100;
-		}
-		else{
-			if (player.health < 100){
-				player.health += 25;
-				if (player.health >= 100){
-					player.health = 100;
-				}
-				cout << "You drank a health potion and restored 25 hp" << '\n';
-				shopitems.at(0).quantity--;
-			}
-		}
+	if (inventorySlot.type == CONSUMABLE){	// inventorySlot string is created to represent each inventory item
+		itemConsumption(player, inventory, shopitems, inventorySlot, eraseIndex);
 	}
-	else if (inventorySlot.name == shopitems.at(1).name){
-		char option = ' ';
-		
-		while (option != 'x'){
-			
-			auto isEquippedTrueCount = count_if(inventory.begin(), inventory.end(),
-				[shopitems](const Items &item){
-					return item.isEquipped;
-				}
-			);
-			
-			if (inventorySlot.isEquipped == false){
-				cout << "- " << shopitems.at(1).name << "\n\n";
-				cout << "[1] Equip" << '\n';
-				cout << "[x] Back" << '\n';
-				
-				cin >> option;
-				
-				switch(option){
-					
-					case '1':
-							if (isEquippedTrueCount >= 1){
-								cout << "You can carry only one weapon at a time" << '\n';
-								break;
-							}
-							inventorySlot.isEquipped = true;
-							player.damage += 15;
-							break;
-					case '2':
-							break;
-					default:
-							break;
-				}
-			}
-			else{
-				cout << "- " << shopitems.at(1).name << "\n\n";
-				cout << "[1] Unquip" << '\n';
-				cout << "[x] Back" << '\n';
-				
-				cin >> option;
-				
-				switch(option){
-					case '1':
-							inventorySlot.isEquipped = false;
-							player.damage -= 15;
-							break;
-					case '2':
-							break;
-					default:
-							break;
-				}
-			}
-		}
-	}
-	else if (inventorySlot.name == shopitems.at(2).name){
-		char option = ' ';
-		
-		while (option != 'x'){
-			
-			auto isEquippedTrueCount = count_if(inventory.begin(), inventory.end(),
-				[shopitems](const Items &item){
-					return item.isEquipped;
-				}
-			);
-			
-			if (inventorySlot.isEquipped == false){
-				cout << "- " << shopitems.at(2).name << "\n\n";
-				cout << "[1] Equip" << '\n';
-				cout << "[x] Back" << '\n';
-				
-				cin >> option;
-				
-				switch(option){
-					case '1':
-							if (isEquippedTrueCount >= 1){
-								cout << "You can carry only one weapon at a time" << '\n';
-								break;
-							}
-							inventorySlot.isEquipped = true;
-							player.damage += 15;
-							break;
-					case '2':
-							break;
-					default:
-							break;
-				}
-			}
-			else{
-				cout << "- " << shopitems.at(2).name << "\n\n";
-				cout << "[1] Unquip" << '\n';
-				cout << "[x] Back" << '\n';
-				
-				cin >> option;
-				
-				switch(option){
-					case '1':
-							inventorySlot.isEquipped = false;
-							player.damage -= 15;
-							break;
-					case '2':
-							break;
-					default:
-							break;
-				}
-			}
-		}
-	}
-	else if (inventorySlot.name == shopitems.at(3).name){
-		char option = ' ';
-		
-		while (option != 'x'){
-			
-			auto isEquippedTrueCount = count_if(inventory.begin(), inventory.end(),
-				[shopitems](const Items &item){
-					return item.isEquipped;
-				}
-			);
-			
-			if (inventorySlot.isEquipped == false){
-				cout << "- " << shopitems.at(3).name << "\n\n";
-				cout << "[1] Equip" << '\n';
-				cout << "[x] Back" << '\n';
-				
-				cin >> option;
-				
-				switch(option){
-					case '1':
-							if (isEquippedTrueCount >= 1){
-								cout << "You can carry only one weapon at a time" << '\n';
-								break;
-							}
-							inventorySlot.isEquipped = true;
-							player.damage += 15;
-							break;
-					case '2':
-							break;
-					default:
-							break;
-				}
-			}
-			else{
-				cout << "- " << shopitems.at(3).name << "\n\n";
-				cout << "[1] Unquip" << '\n';
-				cout << "[x] Back" << '\n';
-				
-				cin >> option;
-				
-				switch(option){
-					case '1':
-							inventorySlot.isEquipped = false;
-							player.damage -= 15;
-							break;
-					case '2':
-							break;
-					default:
-							break;
-				}
-			}
-		}
+	else if (inventorySlot.type == WEAPON){
+		itemEquipment(player, inventory, shopitems, inventorySlot, eraseIndex);
 	}
 	else{
 		cout << "You cannot use/equip something that doesn't exist :|" << '\n';
+	}
+}
+
+void itemEquipment(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex){
+	char option = ' ';
+	
+	while (option != 'x'){
+		
+		auto isEquippedTrueCount = count_if(inventory.begin(), inventory.end(),
+			[shopitems](const Items &item){
+				return item.isEquipped;
+			}
+		);
+		
+		if (inventorySlot.isEquipped == false){
+			cout << "- " << inventorySlot.name << "\n\n";
+			cout << "[1] Equip" << '\n';
+			cout << "[x] Back" << '\n';
+			
+			cin >> option;
+			
+			switch(option){
+				
+				case '1':
+						if (isEquippedTrueCount >= 1){
+							cout << "You can carry only one weapon at a time" << '\n';
+							break;
+						}
+						
+						inventorySlot.isEquipped = true;
+	
+						if (inventorySlot.isEquipped == true){
+							player.damage += inventorySlot.bonusdamage;
+						}
+						break;
+				case '2':
+						break;
+				default:
+						break;
+			}
+		}
+		else{
+			cout << "- " << inventorySlot.name << "\n\n";
+			cout << "[1] Unquip" << '\n';
+			cout << "[x] Back" << '\n';
+			
+			cin >> option;
+			
+			switch(option){
+				case '1':
+						inventorySlot.isEquipped = false;
+						
+						if (inventorySlot.isEquipped == false){
+							player.damage -= inventorySlot.bonusdamage;
+						}
+						break;
+				case '2':
+						break;
+				default:
+						break;
+			}
+		}
+	}
+}
+void itemConsumption(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex){
+	if (!inventory.empty() && shopitems.at(0).quantity <= 1){
+		if (player.health < 100){
+			inventory.erase(inventory.begin() + eraseIndex);
+		}
+	}
+	if (player.health >= 100){
+		cout << "You're already full hp!" << '\n';
+		player.health = 100;
+	}
+	else{
+		if (player.health < 100){
+			player.health += 25;
+			if (player.health >= 100){
+				player.health = 100;
+			}
+			cout << "You drank a health potion and restored 25 hp" << '\n';
+			shopitems.at(0).quantity--;
+		}
 	}
 }

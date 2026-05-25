@@ -11,7 +11,7 @@ void checkStats(Player &player, vector<Items> &inventory){
 	cout << "Damage: " << player.damage << '\n';
 	cout << '\n' << "|-------------------------------------------|" << "\n\n";
 	
-	char option;
+	char option = ' ';
 	
 	while (option != 'x'){
 		cout << '\n' << "[x] - Back to Main Area" << '\n';

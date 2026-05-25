@@ -1,7 +1,7 @@
 #include "game.h"
 
 void mainCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
-	char option;
+	char option = ' ';
 	
 	while (option != 'x'){
 		
@@ -139,154 +139,22 @@ void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 					switch(chestOption){
 						case '1':
 								if (r < 0.57f){ // Cumulative thresholds -> 0.00 to 0.57 = 57% chance
-									int coins = 50;
-									chestOption = ' ';
-									
-									cout << "--------------" << "\n\n";
-									
-									cout << "Chest content:" << "\n\n";
-									
-									cout << "- " << coins << " coins" << "\n\n";
-									
-									cout << "--------------" << '\n';
-									
-									cout << "[1] Claim loot" << '\n';
-									
-									cin >> chestOption;
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-									
-									while(chestOption != '1'){
-										cout << "Invalid input" << '\n';
-										cin >> chestOption;
-									}
-									cout << "You claimed " << coins << " coins" << '\n';
-									player.balance += coins;
+									chestFound(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex, chestOption, 50);
 								}
 								else if(r < 0.82f){ // 0.57 to 0.82 = 25%
-									int coins = 100;
-									chestOption = ' ';
-									
-									cout << "--------------" << "\n\n";
-									
-									cout << "Chest content:" << "\n\n";
-									
-									cout << "- " << coins << " coins" << "\n\n";
-									
-									cout << "--------------" << '\n';
-									
-									cout << "[1] Take loot" << '\n';
-									cout << "[2] Idgaf" << '\n';
-									
-									cin >> chestOption;
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-									
-									while(chestOption != '1'){
-										cout << "Invalid input" << '\n';
-										cin >> chestOption;
-									}
-									cout << "You claimed " << coins << " coins" << '\n';
-									player.balance += coins;
+									chestFound(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex, chestOption, 100);
 								}
 								else if(r < 0.92f){ // 0.82 to 0.92 = 10%
-									int coins = 250;
-									chestOption = ' ';
-									
-									cout << "--------------" << "\n\n";
-									
-									cout << "Chest content:" << "\n\n";
-									
-									cout << "- " << coins << " coins" << "\n\n";
-									
-									cout << "--------------" << '\n';
-									
-									cout << "[1] Take loot" << '\n';
-									cout << "[2] Idgaf" << '\n';
-									
-									cin >> chestOption;
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-									
-									while(chestOption != '1'){
-										cout << "Invalid input" << '\n';
-										cin >> chestOption;
-									}
-									cout << "You claimed " << coins << " coins" << '\n';
-									player.balance += coins;
+									chestFound(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex, chestOption, 250);
 								}
 								else if(r < 0.97f){ // 0.92 to 0.97 = 5%
-									int coins = 500;
-									chestOption = ' ';
-									
-									cout << "--------------" << "\n\n";
-									
-									cout << "Chest content:" << "\n\n";
-									
-									cout << "- " << coins << " coins" << "\n\n";
-									
-									cout << "--------------" << '\n';
-									
-									cout << "[1] Take loot" << '\n';
-									cout << "[2] Idgaf" << '\n';
-									
-									cin >> chestOption;
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-									while(chestOption != '1'){
-										cout << "Invalid input" << '\n';
-										cin >> chestOption;
-									}
-									cout << "You claimed " << coins << " coins" << '\n';
-									player.balance += coins;
+									chestFound(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex, chestOption, 500);
 								}
 								else if(r < 0.99f){ // 0.97 to 0.99 = 2%
-									int coins = 1000;
-									chestOption = ' ';
-									
-									cout << "--------------" << "\n\n";
-									
-									cout << "Chest content:" << "\n\n";
-									
-									cout << "- " << coins << " coins" << "\n\n";
-									
-									cout << "--------------" << '\n';
-									
-									cout << "[1] Take loot" << '\n';
-									cout << "[2] Idgaf" << '\n';
-									
-									cin >> chestOption;
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-									while(chestOption != '1'){
-										cout << "Invalid input" << '\n';
-										cin >> chestOption;
-									}
-									cout << "You claimed " << coins << " coins" << '\n';
-									player.balance += coins;
+									chestFound(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex, chestOption, 1000);
 								}
 								else if(r < 1.00f){ // 0.99 to 1.00 = 1%
-	 
-									int coins = 5000;
-									chestOption = ' ';
-									
-									cout << "--------------" << "\n\n";
-									
-									cout << "Chest content:" << "\n\n";
-									
-									cout << "- " << coins << " coins" << "\n\n";
-									
-									cout << "--------------" << '\n';
-									
-									cout << "[1] Take loot" << '\n';
-									cout << "[2] Idgaf" << '\n';
-									
-									cin >> chestOption;
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-									
-									while(chestOption != '1'){
-										cout << "Invalid input" << '\n';
-										cin >> chestOption;
-									}
-									cout << "You claimed " << coins << " coins" << '\n';
-									player.balance += coins;
+									chestFound(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex, chestOption, 2500);
 								}
 								cout << "DEBUG: r: " << r << '\n';
 								continueLoop = true;
@@ -418,4 +286,29 @@ void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<I
 			}
 			if (breakLoop) break;
 		}
+}
+void chestFound(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, char &chestOption, int foundCoins){
+	
+	int coins = foundCoins;
+	chestOption = ' ';
+	
+	cout << "--------------" << "\n\n";
+	
+	cout << "Chest content:" << "\n\n";
+	
+	cout << "- " << coins << " coins" << "\n\n";
+	
+	cout << "--------------" << '\n';
+	
+	cout << "[1] Claim loot" << '\n';
+	
+	cin >> chestOption;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	
+	while(chestOption != '1'){
+		cout << "Invalid input" << '\n';
+		cin >> chestOption;
+	}
+	cout << "You claimed " << coins << " coins" << '\n';
+	player.balance += coins;
 }

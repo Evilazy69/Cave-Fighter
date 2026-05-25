@@ -10,9 +10,9 @@ float roll(){
 int main(){
 	
 	Player player;
-	player.health = 100;
+	player.health = 80;
+	player.balance = 69420;
 	player.damage = 10;
-	player.balance = 20;
 	player.lives = 3;
 	player.playerPosition = 0;
 	
@@ -35,27 +35,30 @@ int main(){
 	Items healthPotion;
 	healthPotion.name = "Health Potion";
 	healthPotion.price = 25;
-	healthPotion.isEquipped = false;
-	healthPotion.isConsumable = true;
 	healthPotion.quantity = 0;
+	healthPotion.isEquipped = false;
+	healthPotion.type = CONSUMABLE;
 	
 	Items bowieKnife;
 	bowieKnife.name = "Bowie Knife";
 	bowieKnife.price = 100;
+	bowieKnife.bonusdamage = 5;
 	bowieKnife.isEquipped = false;
-	bowieKnife.isConsumable = true;
+	bowieKnife.type = WEAPON;
 	
 	Items machete;
 	machete.name = "Machete";
 	machete.price = 250;
+	machete.bonusdamage = 10;
 	machete.isEquipped = false;
-	machete.isConsumable = true;
+	machete.type = WEAPON;
 	
 	Items sword;
 	sword.name = "Sword";
 	sword.price = 500;
+	sword.bonusdamage = 15;
 	sword.isEquipped = false;
-	sword.isConsumable = true;
+	sword.type = WEAPON;
 	
 	vector<Items> shopitems = {healthPotion, bowieKnife, machete, sword};
 	vector<Items> inventory;
@@ -63,7 +66,7 @@ int main(){
 	int eraseIndex; // inventory.cpp
 	
 
-	char option;
+	char option = ' ';
 	
 	while(option != 'x'){	
 		cout << '\n' << "....................................................." << "\n\n";
@@ -99,7 +102,7 @@ int main(){
 }
 void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
 	
-	char option;
+	char option = ' ';
 	
 	while (option != 'x'){
 		

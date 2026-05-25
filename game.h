@@ -35,15 +35,23 @@ struct Enemy{
 	int fdamage; // damage when fleeing from an enemy
 	int drop;
 };
+
+enum itemTypes{
+	
+	CONSUMABLE,
+	WEAPON
+};
 struct Items{
 	
 	string name;
 	
 	int price;
 	int quantity;
+	int bonusdamage;
 	
 	bool isEquipped;
-	bool isConsumable;
+	
+	itemTypes type;
 };
 
 void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
@@ -51,13 +59,17 @@ void choosePlayerName(Player &player);
 
 void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void inventoryInteraction(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex);
+void itemEquipment(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex);
+void itemConsumption(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex);
 
 void shopArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems);
 void voidedValidation(vector<Items> &inventory, string &itemName, bool &alreadyPuchased);
+void buyEquippable(Player &player, vector<Items> &inventory, vector<Items> &shopitems, bool &alreadyPurchased, Items &item);
 
 void mainCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, bool &breakLoop, bool &continueLoop);
+void chestFound(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, char &chestOption, int foundCoins);
 
 void checkStats(Player &player, vector<Items> &inventory);
 
