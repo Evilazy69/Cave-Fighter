@@ -10,8 +10,8 @@ float roll(){
 int main(){
 	
 	Player player;
-	player.health = 80;
-	player.balance = 69420;
+	player.health = 100;
+	player.balance = 0;
 	player.damage = 10;
 	player.lives = 3;
 	player.playerPosition = 0;
