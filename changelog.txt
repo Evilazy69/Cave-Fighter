@@ -51,7 +51,25 @@ Day 9 (v0.16)
         - Fixed enemy encounter probability bugs
 Day 10 (v0.17)
         - Replaced repetetive code with functions
-
+       (v0.20) (BIG UPDATE)
+        - Added enum itemTypes with CONSUMABLE and WEAPON to game.h
+        - Removed isConsumable bool from Items struct, replaced with itemTypes type
+        - Added bonusdamage field to Items struct
+        - Updated all item definitions in main.cpp to use .type and .bonusdamage instead of isConsumable
+        - Refactored inventoryInteraction to branch on inventorySlot.type instead of comparing names against hardcoded shop positions
+        - Updated itemEquipment to use inventorySlot.name and inventorySlot.bonusdamage instead of hardcoded values
+        - Replaced the hardcoded 8-case switch in checkInventory with a dynamic loop using stoi, bounds checking, and a zero guard
+       (v0.20.1 and v0.20.2)
+        - Changed default health and balance values to "playable" values
+        - Removed unused cpp file that was initially a prototype of inventory.cpp (inventorySystem.cpp)
+        - Moved legacy binaries inside respective folder
+        - !! these version can vary from description in changelog.txt and github repo, since I made some mistakes and had to repush commits !!
+Day 11 (v0.21)
+        - Added Level system (structs were expanded)
+        - Changed the way stats are shown in stats and areas
+        - Changed version to current in Main Menu (very hard work)
+        - Now maxHealth will increase depending on player's level (+5 to maxHealth each new lvl)
+        - added coin rewards at level-ups
 
 
         

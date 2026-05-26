@@ -16,8 +16,13 @@ struct Player{
 	
 	string name;
 
-	int lives;
-	int health;
+	int lives; // after death lives--
+	int level;
+	int currentXP;
+	int lvlupXP;
+	int lvlupReward; // coins for now...
+	int health; // current health
+	int maxHealth; // max health
 	int balance;
 	
 	int damage;
@@ -33,7 +38,8 @@ struct Enemy{
 	
 	int damage; // enemy's damage
 	int fdamage; // damage when fleeing from an enemy
-	int drop;
+	int dropCoins;
+	int dropXP;
 };
 
 enum itemTypes{
@@ -72,6 +78,7 @@ void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<I
 void chestFound(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, char &chestOption, int foundCoins);
 
 void checkStats(Player &player, vector<Items> &inventory);
+void levelingSystem(Player &player);
 
 float roll(); // Random number function
 

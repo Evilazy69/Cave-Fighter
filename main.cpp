@@ -10,10 +10,15 @@ float roll(){
 int main(){
 	
 	Player player;
+	player.lives = 3;
 	player.health = 100;
+	player.maxHealth = 100;
+	player.level = 1;
+	player.currentXP = 0;
+	player.lvlupXP = 100;
+	player.lvlupReward = 100;
 	player.balance = 0;
 	player.damage = 10;
-	player.lives = 3;
 	player.playerPosition = 0;
 	
 	Enemy caveRat;
@@ -22,7 +27,8 @@ int main(){
 	caveRat.maxhealth = 15;
 	caveRat.damage = 10;
 	caveRat.fdamage = 15;
-	caveRat.drop = 20;
+	caveRat.dropCoins = 20;
+	caveRat.dropXP = 5;
 	
 	Enemy overgrownSpider;
 	overgrownSpider.name = "Overgrown Spider";
@@ -30,7 +36,8 @@ int main(){
 	overgrownSpider.maxhealth = 25;
 	overgrownSpider.damage = 15;
 	overgrownSpider.fdamage = 25;
-	overgrownSpider.drop = 50;
+	overgrownSpider.dropCoins = 50;
+	overgrownSpider.dropXP = 10;
 	
 	Items healthPotion;
 	healthPotion.name = "Health Potion";
@@ -70,7 +77,7 @@ int main(){
 	
 	while(option != 'x'){	
 		cout << '\n' << "....................................................." << "\n\n";
-		cout << "Welcome to the Dungeon Fighter Game v0.15" << "\n\n";		
+		cout << "Welcome to the Dungeon Fighter Game v0.21" << "\n\n";		
 
 		cout << "~~~ Main menu ~~~" << "\n\n";
 
@@ -112,12 +119,15 @@ void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Ite
 		}
 	
 		cout << "..!..!!..!!!...!.!!.!!.!!!..!!!.!!!.!!!!.!!.!!.!!." << "\n\n";
-		cout << "Health: " << player.health << '\n';
+		cout << "Health: " << '[' << player.health << '/' << player.maxHealth << ']' << '\n';
+		cout << "XP: " << '[' << player.currentXP << '/' << player.lvlupXP << ']' << '\n';
+		cout << "Level: " << player.level << "\n\n";
+		
 		cout << "Coins: " << player.balance << "\n\n";
 		
 		cout << "[1] Enter Shop" << '\n';
 		cout << "[2] Enter Cave" << '\n';
-		cout << "[3] Check stats" << '\n';
+		cout << "[3] Check Stats" << '\n';
 		cout << "[4] Inventory" << "\n\n";
 		
 		cout << "[x] Main menu" << "\n\n";
@@ -170,30 +180,3 @@ void choosePlayerName(Player &player){
 	
 	cout << "Teleporting to the main area..." << "\n\n";
 }
-
-/*
-
-	if (hiddenPassCount == 1){
-		cout << '\n' << "You stumbled upon " << hiddenPassCount << " hidden cave entry!" << '\n';
-		passlist.push_back("Dark passage");
-	}
-	else{
-		cout << '\n' << "You stumbled upon " << hiddenPassCount << " hidden cave entries!" << '\n';
-		for (int i = 1; i <= 2; i++){
-			passlist.push_back("Dark passage " + to_string(i));
-		}
-	}
-	
-	cout << '\n' << "Where do you want to go?" << "\n\n";
-	
-	for (unsigned int i = 0; i < passlist.size(); i++){
-		cout << "[" << i+1 << "]" << ' ' << passlist.at(i) << '\n';
-	}
-	
-	char option;
-	
-*/
-
-
-
-			 // {Item healthPotion, Item BowieKnife, Item Machete, Item Sword};

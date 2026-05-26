@@ -76,7 +76,8 @@ void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 			
 			cout << '\n' << "000ooo000o0o0o0ooo0ooo0oooo00000ooo000oooo000ooo0000ooo000" << "\n\n";
 			
-			cout << "Health: " << player.health << "\n\n";
+			cout << "HP: " << '[' << player.health << '/' << player.maxHealth << ']' << '\n';
+			cout << "XP: " << '[' << player.currentXP << '/' << player.lvlupXP << ']' << "\n\n";
 			
 			cout << "[1] Advance" << '\n';
 			cout << "[2] Step back" << "\n\n";
@@ -108,8 +109,9 @@ void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 			
 			cout << '\n' << "000ooo000o0o0o0ooo0ooo0oooo00000ooo000oooo000ooo0000ooo000" << "\n\n";
 			
-			cout << "DEBUG: " << r << '\n';
-			cout << "Health: " << player.health << "\n\n";
+			cout << "HP: " << '[' << player.health << '/' << player.maxHealth << ']' << '\n';
+			cout << "XP: " << '[' << player.currentXP << '/' << player.lvlupXP << ']' << '\n';
+			cout << "LVL: " << player.level << "\n\n";
 			
 			cout << "[1] Advance" << '\n';
 			cout << "[2] Step back" << "\n\n";
@@ -240,7 +242,7 @@ void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<I
 							
 							cout << enemy.name << " health (" << enemy.health << '/' << enemy.maxhealth << ')' << "\n\n";
 							
-							cout << "Health: " << player.health << "\n\n";
+							cout << "Health: " << '[' << player.health << '/' << player.maxHealth << ']' << '\n';
 							
 							cout << "[1] Attack" << '\n';
 							cout << "[2] Inventory" << '\n';
@@ -264,9 +266,19 @@ void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<I
 							
 						}
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');
-						player.balance += enemy.drop;
-						cout << "You beat " << enemy.name << '\n';
-						cout << "Looted: " << enemy.drop << '\n';
+						player.balance += enemy.dropCoins;
+						player.currentXP += enemy.dropXP;
+						levelingSystem(player);
+						cout << '\n';
+						cout << ".........................." << "\n\n";
+						
+						cout << "You beat " << enemy.name << '!' << "\n\n";
+						cout << "Looted: " << "\n\n";
+						
+						cout << "- " << enemy.dropCoins << " coins" << '\n';
+						cout << "- " << enemy.dropXP << " XP" << '\n';
+						
+						cout << ".........................." << "\n\n";
 						
 						continueLoop = true; // After beating the rat, player goes back to the main loop instead of proceeding to main loop's movememnt switch
 						breakLoop = true;

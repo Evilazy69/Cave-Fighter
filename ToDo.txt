@@ -1,7 +1,9 @@
 Make items in Inventory usable - Done (19/05/2026)
 Make that only one weapon item can be equiped - Done (19/05/2026)
 Don't remove health potion from inventory if used and health was full - Done (24/05/2026)
+Implement Levels - on progress.
 
+fix player not dying until fight ends (player has to die as soon as player.health == 0)
+Add an item that will teleport player from any position to position 0 - later
 Implement Item selling in shop - later
-Implement Levels - later
 Implement inventory capacity and its upgrade

@@ -131,19 +131,19 @@ void itemEquipment(Player &player, vector<Items> &inventory, vector<Items> &shop
 }
 void itemConsumption(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex){
 	if (!inventory.empty() && shopitems.at(0).quantity <= 1){
-		if (player.health < 100){
+		if (player.health < player.maxHealth){
 			inventory.erase(inventory.begin() + eraseIndex);
 		}
 	}
-	if (player.health >= 100){
+	if (player.health >= player.maxHealth){
 		cout << "You're already full hp!" << '\n';
-		player.health = 100;
+		player.health = player.maxHealth;
 	}
 	else{
-		if (player.health < 100){
+		if (player.health < player.maxHealth){
 			player.health += 25;
-			if (player.health >= 100){
-				player.health = 100;
+			if (player.health >= player.maxHealth){
+				player.health = player.maxHealth;
 			}
 			cout << "You drank a health potion and restored 25 hp" << '\n';
 			shopitems.at(0).quantity--;
