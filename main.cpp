@@ -11,15 +11,20 @@ int main(){
 	
 	Player player;
 	player.lives = 3;
-	player.health = 100;
+	player.health = 50;
+	player.balance = 1000;
 	player.maxHealth = 100;
 	player.level = 1;
 	player.currentXP = 0;
 	player.lvlupXP = 100;
 	player.lvlupReward = 100;
-	player.balance = 0;
 	player.damage = 10;
 	player.playerPosition = 0;
+	player.winCount = 0;
+	player.lossCount = 0;
+	player.isVictorious = false;
+	player.isAlive = true;
+	player.killedBy = " ";
 	
 	Enemy caveRat;
 	caveRat.name = "Cave Rat";
@@ -93,11 +98,11 @@ int main(){
 		
 		switch(option){
 			case '1':
-					if (!player.name.empty()){
-						mainArea(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex);
-						break;
-					}
-					choosePlayerName(player);
+					//if (!player.name.empty()){
+					//	mainArea(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex);
+					//	break;
+					//}
+					//choosePlayerName(player);
 					mainArea(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex);
 					break;
 			case '2':
@@ -113,9 +118,10 @@ void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Ite
 	
 	while (option != 'x'){
 		
-		if (player.health == 0){
+		if (player.isAlive == false){
 			player.lives--;
 			player.health = 100;
+			player.isAlive = true; // resurrection
 		}
 	
 		cout << "..!..!!..!!!...!.!!.!!.!!!..!!!.!!!.!!!!.!!.!!.!!." << "\n\n";

@@ -5,9 +5,7 @@ void mainCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 	
 	while (option != 'x'){
 		
-		if (player.health <= 0){
-			break;
-		}
+		if (player.isAlive == false) break;
 	
 		cout << '\n' << "000ooo000o0o0o0ooo0ooo0oooo00000ooo000oooo000ooo0000ooo000" << "\n\n";
 	
@@ -39,36 +37,14 @@ void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 	int prevPosition = player.playerPosition;
 	
 	bool continueLoop = false;
-	bool breakLoop = false;
 	char option = ' ';
 	
 	while (option != 'x'){
-
-		if (player.health < 0){
-			player.health = 0;
-		}
-		if (player.health == 0){
-			if (player.lives <= 0){
-				cout << "\n\n\n";
-				cout << "Game Over :(" << '\n';
-				cout << "\n\n\n";
-				exit(0);
-			}
-			cout << "/////////////////" << "\n\n";
-			
-			cout << "You died" << "\n\n";
-			
-			cout << player.lives-1 << " lives remain" << "\n\n";
-			
-			cout << "/////////////////" << "\n\n";
-			
-			
-			cin.get();
-			break;
-		}
 		
 		continueLoop = false;
-		breakLoop = false;
+		player.isVictorious = false;
+		if (player.isAlive == false) break;
+		
 		float r = roll();
 		
 		
@@ -92,15 +68,13 @@ void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 		}
 		else if (player.playerPosition >= 5 && player.playerPosition > prevPosition && r < 0.20){ // 0.00 - 0.20 => 20% chance of stumble upon caveRat on moving forward
 			
-			enemyFight(player, caveRat, inventory, shopitems, eraseIndex, breakLoop, continueLoop);
-			cout << "DEBUG: " << r << '\n';
+			enemyFight(player, caveRat, inventory, shopitems, eraseIndex, continueLoop);
 			prevPosition = player.playerPosition; // when these values match, it will prevent successive stumbling upon enemies as fight ends
 			if (continueLoop) continue;
 		}
 		else if (player.playerPosition >= 5 && player.playerPosition > prevPosition && r >= 0.20 && r < 0.30){ // 0.20 - 0.30 => 10% chance of finding chest on moving
-			cout << "DEBUG: " << r << '\n';
 			
-			enemyFight(player, overgrownSpider, inventory, shopitems, eraseIndex, breakLoop, continueLoop);
+			enemyFight(player, overgrownSpider, inventory, shopitems, eraseIndex, continueLoop);
 			prevPosition = player.playerPosition;
 			if (continueLoop) continue;
 		}
@@ -158,7 +132,6 @@ void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 								else if(r < 1.00f){ // 0.99 to 1.00 = 1%
 									chestFound(player, caveRat, overgrownSpider, inventory, shopitems, eraseIndex, chestOption, 2500);
 								}
-								cout << "DEBUG: r: " << r << '\n';
 								continueLoop = true;
 								break;
 						case '2':
@@ -215,60 +188,79 @@ void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 		}
 	}
 }
-void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, bool &breakLoop, bool &continueLoop){
+void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, bool &continueLoop){
 		
-		enemy.health = enemy.maxhealth; // If an enemy was previously killed, this will reset its health to its maximum health
-		char encounterOption = ' ';
-		while (encounterOption != '2'){
-			
-			cout << "!!!!!!!!!!!!!!!!!!!!!" << "\n\n";
-			
-			cout << "You encountered a " << enemy.name << "\n\n";
-			
-			cout << "Health: " << player.health << "\n\n";
-			
-			cout << "[1] Start fighting" << '\n';
-			cout << "[2] Try to flee (lose " << enemy.fdamage << " hp)" << "\n\n";
-			
-			cout << "[3] Inventory" << "\n\n";
-			
-			cout << "!!!!!!!!!!!!!!!!!!!!!" << "\n\n";
-			
-			cin >> encounterOption;
-			switch(encounterOption){
-				case '1':
-						while (enemy.health > 0){
-							char fightOption = ' ';
-							
-							cout << enemy.name << " health (" << enemy.health << '/' << enemy.maxhealth << ')' << "\n\n";
-							
-							cout << "Health: " << '[' << player.health << '/' << player.maxHealth << ']' << '\n';
-							
-							cout << "[1] Attack" << '\n';
-							cout << "[2] Inventory" << '\n';
-
-							cin >> fightOption;
-						
-							switch(fightOption){
-								case '1':
-										enemy.health -= player.damage;
-										cout << '\n' << "You dealt: " << player.damage << " damage" << '\n';
-										
-										if (enemy.health > 0){
-											player.health -= enemy.damage;
-											cout << "You received: " << enemy.damage << " damage" << "\n\n";
-										}
-										break;
-								case '2':
-										checkInventory(player, inventory, shopitems, eraseIndex);
-										break;
-							}
-							
+	enemy.health = enemy.maxhealth; // If an enemy was previously killed, this will reset its health to its maximum health
+	char encounterOption = ' ';
+	bool isFightActive = true;
+	
+	while (isFightActive){
+		if (player.isAlive == false) break;
+		
+		cout << "!!!!!!!!!!!!!!!!!!!!!" << "\n\n";
+		
+		cout << "You encountered a " << enemy.name << "\n\n";
+		
+		cout << "Health: " << player.health << "\n\n";
+		
+		cout << "[1] Start fighting" << '\n';
+		cout << "[2] Try to flee (lose " << enemy.fdamage << " hp)" << "\n\n";
+		
+		cout << "[3] Inventory" << "\n\n";
+		
+		cout << "!!!!!!!!!!!!!!!!!!!!!" << "\n\n";
+		
+		cin >> encounterOption;
+		switch(encounterOption){
+			case '1':
+					while (enemy.health > 0){ // fighting loop
+					
+						playerStateValidation(player);
+						if (player.isAlive == false){
+							isFightActive = false;
+							player.killedBy = enemy.name;
+							playerDeath(player, continueLoop);
+							break;
 						}
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						
+						char fightOption = ' ';
+						
+						cout << enemy.name << " health (" << enemy.health << '/' << enemy.maxhealth << ')' << "\n\n";
+						
+						cout << "Health: " << '[' << player.health << '/' << player.maxHealth << ']' << '\n';
+						
+						cout << "[1] Attack" << '\n';
+						cout << "[2] Inventory" << '\n';
+
+						cin >> fightOption;
+					
+						switch(fightOption){
+							case '1':
+									enemy.health -= player.damage;
+									cout << '\n' << "You dealt: " << player.damage << " damage" << '\n';
+									
+									if (enemy.health > 0){
+										player.health -= enemy.damage;
+										cout << "You received: " << enemy.damage << " damage" << "\n\n";
+									}
+									else{
+										isFightActive = false;
+										player.isVictorious = true;
+									}
+									break;
+							case '2':
+									checkInventory(player, inventory, shopitems, eraseIndex);
+									break;
+						}
+					}
+					
+					if (player.isVictorious){
+						
 						player.balance += enemy.dropCoins;
 						player.currentXP += enemy.dropXP;
+						
 						levelingSystem(player);
+						
 						cout << '\n';
 						cout << ".........................." << "\n\n";
 						
@@ -280,24 +272,24 @@ void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<I
 						
 						cout << ".........................." << "\n\n";
 						
-						continueLoop = true; // After beating the rat, player goes back to the main loop instead of proceeding to main loop's movememnt switch
-						breakLoop = true;
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						cin.get();
 						
-						encounterOption = '2'; // reassigning '2' to option so the outter loop will allow me to escape, since it's condition is while option != '2'
-						break; // break from while (enemy.health > 0) loop once the fight is done (won or lost)
-				case '2':
-						player.health -= enemy.fdamage;
-						continueLoop = true; // After fleeing,  player goes back to the main loop instead of proceeding to main loop's movememnt switch
-						breakLoop = true;
-						break;
-				case '3':
-						checkInventory(player, inventory, shopitems, eraseIndex);
-						break;
-				default:
-						break;
-			}
-			if (breakLoop) break;
+						continueLoop = true;
+					}
+
+					break; // break from while (enemy.health > 0) loop once the fight is done (won or lost)
+			case '2':
+					player.health -= enemy.fdamage;
+					continueLoop = true; // After fleeing,  player goes back to the main loop instead of proceeding to main loop's movememnt switch
+					return;
+			case '3':
+					checkInventory(player, inventory, shopitems, eraseIndex);
+					break;
+			default:
+					break;
 		}
+	}
 }
 void chestFound(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, char &chestOption, int foundCoins){
 	
@@ -323,4 +315,38 @@ void chestFound(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<I
 	}
 	cout << "You claimed " << coins << " coins" << '\n';
 	player.balance += coins;
+}
+void playerDeath(Player &player, bool &continueLoop){
+
+	if (player.isAlive == false){
+		if (player.lives <= 0){
+			cout << "\n\n\n";
+			
+			
+			cout << "Game Over :(" << '\n';
+			
+			
+			cout << "\n\n\n";
+			exit(0);
+		}
+		
+		cout << "\n\n" << "/////////////////" << "\n\n";
+		
+		cout << "You died" << "\n\n";
+		
+		cout << "Death cause: Killed by " << player.killedBy << "\n\n";
+		
+		cout << player.lives-1 << " lives remain";
+		
+		cout << "\n\n" << "/////////////////" << "\n";
+	
+		continueLoop = true; // After win or loss, player goes back to the main loop instead of proceeding to main loop's movememnt switch
+		
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.get();
+	}
+}
+void playerStateValidation(Player &player){
+	if (player.health < 0) player.health = 0;
+	if (player.health == 0) player.isAlive = false;
 }

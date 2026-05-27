@@ -15,19 +15,29 @@ using namespace std;
 struct Player{
 	
 	string name;
+	string killedBy;
 
 	int lives; // after death lives--
+	
 	int level;
 	int currentXP;
 	int lvlupXP;
 	int lvlupReward; // coins for now...
+	
 	int health; // current health
 	int maxHealth; // max health
+	
 	int balance;
 	
 	int damage;
 	
 	int playerPosition;
+	
+	int winCount;
+	int lossCount;
+	
+	bool isVictorious;
+	bool isAlive;
 };
 struct Enemy{
 	
@@ -74,8 +84,10 @@ void buyEquippable(Player &player, vector<Items> &inventory, vector<Items> &shop
 
 void mainCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
-void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, bool &breakLoop, bool &continueLoop);
+void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, bool &continueLoop);
 void chestFound(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, char &chestOption, int foundCoins);
+void playerDeath(Player &player, bool &continueLoop);
+void playerStateValidation(Player &player);
 
 void checkStats(Player &player, vector<Items> &inventory);
 void levelingSystem(Player &player);

@@ -70,6 +70,11 @@ Day 11 (v0.21)
         - Changed version to current in Main Menu (very hard work)
         - Now maxHealth will increase depending on player's level (+5 to maxHealth each new lvl)
         - added coin rewards at level-ups
+Day 12 (v0.21.1)
+        - Fixed enemyFight lingering until enemy is dead even if the player died midfight (now as soon as player.health reaches 0, the fight will be lost thus the loop will be exited
+        - Since enemyFight was changed, bool exitLoop became redundant and was removed
+        - Overall restructure of enemyFight function
+        
 
 
         
