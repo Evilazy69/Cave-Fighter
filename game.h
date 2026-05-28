@@ -16,6 +16,7 @@ struct Player{
 	
 	string name;
 	string killedBy;
+	string atLocation; // player localisation
 
 	int lives; // after death lives--
 	
@@ -62,7 +63,10 @@ struct Items{
 	string name;
 	
 	int price;
+	
 	int quantity;
+	int maxQuantity;
+	
 	int bonusdamage;
 	
 	bool isEquipped;
@@ -70,17 +74,26 @@ struct Items{
 	itemTypes type;
 };
 
+// main
+
 void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void choosePlayerName(Player &player);
+
+// inventory
 
 void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void inventoryInteraction(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex);
 void itemEquipment(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex);
 void itemConsumption(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex);
 
+// shop
+
 void shopArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems);
 void voidedValidation(vector<Items> &inventory, string &itemName, bool &alreadyPuchased);
 void buyEquippable(Player &player, vector<Items> &inventory, vector<Items> &shopitems, bool &alreadyPurchased, Items &item);
+bool buyConsumable(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &item);
+
+// gameplay
 
 void mainCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
@@ -88,6 +101,8 @@ void enemyFight(Player &player, Enemy &enemy, vector<Items> &inventory, vector<I
 void chestFound(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, char &chestOption, int foundCoins);
 void playerDeath(Player &player, bool &continueLoop);
 void playerStateValidation(Player &player);
+
+// stats
 
 void checkStats(Player &player, vector<Items> &inventory);
 void levelingSystem(Player &player);

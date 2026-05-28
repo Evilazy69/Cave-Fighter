@@ -31,7 +31,8 @@ Day 4 (v0.13):
         - Changed vector<bool> isEquipped size from 3 to undefined (Now the size of isEquipped will be expanded by 1, each time a corresponding item is bought
         - Added an iterator that checks for true values inside isEquipped, thank to that I implemented a system that allows to equip only one weapon at a time
 Day 5 (v0.14)
-        - A massive rework of inventory system was done. I noticed that having multiple unrelated vectors and variables becomes more and more unstable and unreliable each time I expanded inventory system's functionnality, therefore I       I added a struct that assembles variables and vectors related to items from the shop.
+        - A massive rework of inventory system was done. I noticed that having multiple unrelated vectors and variables becomes more and more unstable and unreliable each time I expanded inventory system's functionnality
+	      that's why I added a struct that assembles variables and vectors related to items from the shop.
         - Now potions will be stacked instead of being a separate element of inventory for each potion, current limit of having potions at once is 5
         - Started developing first cave location
 Day 7 (v0.14.1)
@@ -74,6 +75,13 @@ Day 12 (v0.21.1)
         - Fixed enemyFight lingering until enemy is dead even if the player died midfight (now as soon as player.health reaches 0, the fight will be lost thus the loop will be exited
         - Since enemyFight was changed, bool exitLoop became redundant and was removed
         - Overall restructure of enemyFight function
+        - Forgot to build exe binary :)
+Day 13 (v0.22)
+        - Added a new consumable item: Telecrystl
+        - Refactored inventory system since the previous version was made for only one consumable
+        - Fixed inventoryCheck relying on the shopitems.at(i) order (which is not relevant anymore, since we've got multiple consumables and the first that is bought is not always the first in the shopitems list)
+        - wrapped codeblock responsible for consumable items purchasing inside function buyConsumable
+          (used bool function approach to compensate the inability to use loop control statements inside buyConsumable, since function's body obviously have no idea about the loop outside the function
         
 
 

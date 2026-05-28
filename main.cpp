@@ -25,6 +25,7 @@ int main(){
 	player.isVictorious = false;
 	player.isAlive = true;
 	player.killedBy = " ";
+	player.atLocation = " ";
 	
 	Enemy caveRat;
 	caveRat.name = "Cave Rat";
@@ -48,8 +49,15 @@ int main(){
 	healthPotion.name = "Health Potion";
 	healthPotion.price = 25;
 	healthPotion.quantity = 0;
-	healthPotion.isEquipped = false;
+	healthPotion.maxQuantity = 5;
 	healthPotion.type = CONSUMABLE;
+	
+	Items teleCrystal;
+	teleCrystal.name = "Telecrystl";
+	teleCrystal.price = 50;
+	teleCrystal.quantity = 0;
+	teleCrystal.maxQuantity = 2;
+	teleCrystal.type = CONSUMABLE;
 	
 	Items bowieKnife;
 	bowieKnife.name = "Bowie Knife";
@@ -72,7 +80,7 @@ int main(){
 	sword.isEquipped = false;
 	sword.type = WEAPON;
 	
-	vector<Items> shopitems = {healthPotion, bowieKnife, machete, sword};
+	vector<Items> shopitems = {healthPotion, teleCrystal, bowieKnife, machete, sword};
 	vector<Items> inventory;
 	
 	int eraseIndex; // inventory.cpp
@@ -114,9 +122,11 @@ int main(){
 }
 void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
 	
+	
 	char option = ' ';
 	
 	while (option != 'x'){
+	player.atLocation = "mainArea";
 		
 		if (player.isAlive == false){
 			player.lives--;

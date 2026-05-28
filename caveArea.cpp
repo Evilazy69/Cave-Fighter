@@ -1,6 +1,10 @@
 #include "game.h"
 
 void mainCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
+	
+	
+	player.atLocation = "mainCaveArea"; // the location is set beyond while loop so it doesn't interfere when location changed to clayCaveArea which is inside mainCaveArea
+	
 	char option = ' ';
 	
 	while (option != 'x'){
@@ -33,6 +37,7 @@ void mainCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 }
 void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
 	
+	
 	player.playerPosition = 0;
 	int prevPosition = player.playerPosition;
 	
@@ -40,6 +45,7 @@ void clayCaveArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector
 	char option = ' ';
 	
 	while (option != 'x'){
+	player.atLocation = "clayCaveArea";
 		
 		continueLoop = false;
 		player.isVictorious = false;

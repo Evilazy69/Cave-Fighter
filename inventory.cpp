@@ -1,6 +1,7 @@
 #include "game.h"
 
 void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex){
+	
 	string option = " ";
 	
 	while (true){
@@ -11,9 +12,17 @@ void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &sho
 			cout << "Inventory is empty :(" << '\n';
 		}
 		
+		
 		for (unsigned int i = 0; i < inventory.size(); i++){
-			if (inventory.at(i).type == CONSUMABLE && inventory.at(i).name == shopitems.at(0).name){
-				cout << '[' << i+1 << "] " << inventory.at(i).name << " (" << shopitems.at(0).quantity << "/5)" << '\n';
+			
+			auto it = find_if(shopitems.begin(), shopitems.end(), // comparing shopitems elements to inventory elements by name member
+				[inventory, shopitems, i](const Items &item){	  // this prevents relying that the inventory and shopitems have the same order (which is not always the case)
+					return item.name == inventory.at(i).name;	  // so we search what's is certainly matching and then only print the inventory
+				}
+			);
+			
+			if (inventory.at(i).type == CONSUMABLE){
+				cout << '[' << i+1 << "] " << inventory.at(i).name << " (" << it->quantity << '/' << it->maxQuantity << ')' << '\n';
 			}
 			else if(inventory.at(i).isEquipped == true){
 				cout << '[' << i+1 << "] " << inventory.at(i).name << " (Equipped)" << '\n';
@@ -52,7 +61,7 @@ void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &sho
 			continue;
 		}
 		
-		inventoryInteraction(player, inventory, shopitems, inventory.at(opt-1), eraseIndex = opt-1);
+		inventoryInteraction(player, inventory, shopitems, inventory.at(opt-1), eraseIndex = opt-1); // Inventory slot index interaction depends on what user enters as index
 	}
 }
 void inventoryInteraction(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex){
@@ -130,23 +139,39 @@ void itemEquipment(Player &player, vector<Items> &inventory, vector<Items> &shop
 	}
 }
 void itemConsumption(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex){
-	if (!inventory.empty() && shopitems.at(0).quantity <= 1){
-		if (player.health < player.maxHealth){
-			inventory.erase(inventory.begin() + eraseIndex);
+	if (inventorySlot.name == "Health Potion"){
+		if (!inventory.empty() && shopitems.at(0).quantity <= 1){
+			if (player.health < player.maxHealth){
+				inventory.erase(inventory.begin() + eraseIndex);
+			}
+		}
+		if (player.health >= player.maxHealth){
+			cout << "You're already full hp!" << '\n';
+			player.health = player.maxHealth;
+		}
+		else{
+			if (player.health < player.maxHealth){
+				player.health += 25;
+				if (player.health >= player.maxHealth){
+					player.health = player.maxHealth;
+				}
+				cout << "You drank a health potion and restored 25 hp" << '\n';
+				shopitems.at(0).quantity--;
+			}
 		}
 	}
-	if (player.health >= player.maxHealth){
-		cout << "You're already full hp!" << '\n';
-		player.health = player.maxHealth;
-	}
-	else{
-		if (player.health < player.maxHealth){
-			player.health += 25;
-			if (player.health >= player.maxHealth){
-				player.health = player.maxHealth;
+	else if (inventorySlot.name == "Telecrystl"){
+		if (player.atLocation == "clayCaveArea"){
+			if (!inventory.empty() && shopitems.at(1).quantity <= 1){
+				inventory.erase(inventory.begin() + eraseIndex);
 			}
-			cout << "You drank a health potion and restored 25 hp" << '\n';
-			shopitems.at(0).quantity--;
+			shopitems.at(1).quantity--;
+			player.playerPosition = 0;
+			cout << "You absorbed telecrystl and were teleported to the origin..." << '\n';
+		}
+		else{
+			cout << "DEBUG: player.atLocation value: " << player.atLocation << '\n';
+			cout << "You can't use this item here" << '\n';
 		}
 	}
 }
