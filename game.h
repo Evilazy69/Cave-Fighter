@@ -9,10 +9,11 @@
 #include <cstdlib>
 #include <random>
 #include <cctype>
+#include <iomanip>
 
 using namespace std;
 
-struct Player{
+struct Player {
 	
 	string name;
 	string killedBy;
@@ -21,6 +22,7 @@ struct Player{
 	int lives; // after death lives--
 	
 	int level;
+	int maxLevel;
 	int currentXP;
 	int lvlupXP;
 	int lvlupReward; // coins for now...
@@ -30,7 +32,7 @@ struct Player{
 	
 	int balance;
 	
-	int damage;
+	float damage;
 	
 	int playerPosition;
 	
@@ -40,7 +42,18 @@ struct Player{
 	bool isVictorious;
 	bool isAlive;
 };
-struct Enemy{
+struct Upgrades {
+	
+	string name;
+	
+	int initialPrice;
+	int currentPrice;
+	
+	float upgradeValue; // value of one upgrade step of whatever is affected by upgradeValue (Maxhealth, damage, etc.)
+	int currentUpgrade;
+	int maxUpgrade;
+};
+struct Enemy {
 	
 	string name;
 	
@@ -53,16 +66,17 @@ struct Enemy{
 	int dropXP;
 };
 
-enum itemTypes{
+enum itemTypes {
 	
 	CONSUMABLE,
 	WEAPON
 };
-struct Items{
+struct Items {
 	
 	string name;
 	
 	int price;
+	int sellPrice;
 	
 	int quantity;
 	int maxQuantity;
@@ -76,7 +90,7 @@ struct Items{
 
 // main
 
-void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
+void mainArea(Player &player, Enemy &caveRat, Enemy &overgrownSpider, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex, Upgrades &upgrDamage, Upgrades &upgrMaxHealth);
 void choosePlayerName(Player &player);
 
 // inventory
@@ -88,10 +102,11 @@ void itemConsumption(Player &player, vector<Items> &inventory, vector<Items> &sh
 
 // shop
 
-void shopArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems);
+void shopArea(Player &player, vector<Items> &inventory, vector<Items> &shopitems, int &eraseIndex);
 void voidedValidation(vector<Items> &inventory, string &itemName, bool &alreadyPuchased);
 void buyEquippable(Player &player, vector<Items> &inventory, vector<Items> &shopitems, bool &alreadyPurchased, Items &item);
 bool buyConsumable(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &item);
+void sellItems(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex);
 
 // gameplay
 
@@ -106,6 +121,10 @@ void playerStateValidation(Player &player);
 
 void checkStats(Player &player, vector<Items> &inventory);
 void levelingSystem(Player &player);
+void upgradeMenu(Player &player, Upgrades &upgrDamage, Upgrades &upgrMaxHealth);
+bool upgradeStat(Player &player, Upgrades &upgrade, int &playerStat);  // overloaded functions for int and float cases
+bool upgradeStat(Player &player, Upgrades &upgrade, float &playerStat);
+
 
 float roll(); // Random number function
 

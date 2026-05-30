@@ -12,23 +12,41 @@ void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &sho
 			cout << "Inventory is empty :(" << '\n';
 		}
 		
-		
-		for (unsigned int i = 0; i < inventory.size(); i++){
-			
-			auto it = find_if(shopitems.begin(), shopitems.end(), // comparing shopitems elements to inventory elements by name member
-				[inventory, shopitems, i](const Items &item){	  // this prevents relying that the inventory and shopitems have the same order (which is not always the case)
-					return item.name == inventory.at(i).name;	  // so we search what's is certainly matching and then only print the inventory
+		if (player.atLocation != "shopArea"){
+			for (unsigned int i = 0; i < inventory.size(); i++){
+				
+				auto it = find_if(shopitems.begin(), shopitems.end(), // comparing shopitems elements to inventory elements by name member
+					[inventory, shopitems, i](const Items &item){	  // this prevents relying that the inventory and shopitems have the same order (which is not always the case)
+						return item.name == inventory.at(i).name;	  // so we search what's is certainly matching and then only print the inventory
+					}
+				);
+				
+				if (inventory.at(i).type == CONSUMABLE){
+					cout << '[' << i+1 << "] " << inventory.at(i).name << " (" << it->quantity << '/' << it->maxQuantity << ')' << '\n';
 				}
-			);
-			
-			if (inventory.at(i).type == CONSUMABLE){
-				cout << '[' << i+1 << "] " << inventory.at(i).name << " (" << it->quantity << '/' << it->maxQuantity << ')' << '\n';
+				else if(inventory.at(i).isEquipped == true){
+					cout << '[' << i+1 << "] " << inventory.at(i).name << " (Equipped)" << '\n';
+				}
+				else if(inventory.at(i).isEquipped == false){
+					cout << '[' << i+1 << "] " << inventory.at(i).name << " (Unequipped)" << '\n';
+				}
 			}
-			else if(inventory.at(i).isEquipped == true){
-				cout << '[' << i+1 << "] " << inventory.at(i).name << " (Equipped)" << '\n';
-			}
-			else if(inventory.at(i).isEquipped == false){
-				cout << '[' << i+1 << "] " << inventory.at(i).name << " (Unequipped)" << '\n';
+		}
+		else{
+			for (unsigned int i = 0; i < inventory.size(); i++){
+				
+				auto it = find_if(shopitems.begin(), shopitems.end(),
+					[inventory, shopitems, i](const Items &item){	  
+						return item.name == inventory.at(i).name;	  
+					}
+				);
+				
+				if (inventory.at(i).type == CONSUMABLE){
+					cout << '[' << i+1 << "] " << inventory.at(i).name << " (" << it->quantity << '/' << it->maxQuantity << ')' << '\n';
+				}
+				else if(inventory.at(i).type == WEAPON){
+					cout << '[' << i+1 << "] " << inventory.at(i).name << '\n';
+				}
 			}
 		}
 
@@ -66,14 +84,24 @@ void checkInventory(Player &player, vector<Items> &inventory, vector<Items> &sho
 }
 void inventoryInteraction(Player &player, vector<Items> &inventory, vector<Items> &shopitems, Items &inventorySlot, int &eraseIndex){
 	
-	if (inventorySlot.type == CONSUMABLE){	// inventorySlot string is created to represent each inventory item
-		itemConsumption(player, inventory, shopitems, inventorySlot, eraseIndex);
+	if (player.atLocation != "shopArea"){ // use/equip items
+		if (inventorySlot.type == CONSUMABLE){
+			itemConsumption(player, inventory, shopitems, inventorySlot, eraseIndex);
+		}
+		else if (inventorySlot.type == WEAPON){
+			itemEquipment(player, inventory, shopitems, inventorySlot, eraseIndex);
+		}
+		else{
+			cout << "You cannot use/equip something that doesn't exist :|" << '\n';
+		}
 	}
-	else if (inventorySlot.type == WEAPON){
-		itemEquipment(player, inventory, shopitems, inventorySlot, eraseIndex);
-	}
-	else{
-		cout << "You cannot use/equip something that doesn't exist :|" << '\n';
+	else{ // sell items
+		if (inventorySlot.type == CONSUMABLE || inventorySlot.type == WEAPON){
+			sellItems(player, inventory, shopitems, inventorySlot, eraseIndex);
+		}
+		else{
+			cout << "You cannot sell something that doesn't exist :|" << '\n';
+		}
 	}
 }
 

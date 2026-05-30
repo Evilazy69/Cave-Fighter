@@ -4,6 +4,6 @@ Don't remove health potion from inventory if used and health was full - Done (24
 Implement Levels - Done.
 fix player not dying until fight ends (player has to die as soon as player.health == 0) - Done (27/05/2026)
 Add an item that will teleport player from any position to position 0 - Done (28/05/2026)
+Implement Item selling in shop - Done (30/05/2026)
 
-Implement Item selling in shop - later
 Implement inventory capacity and its upgrade

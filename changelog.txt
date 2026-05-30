@@ -35,6 +35,7 @@ Day 5 (v0.14)
 	      that's why I added a struct that assembles variables and vectors related to items from the shop.
         - Now potions will be stacked instead of being a separate element of inventory for each potion, current limit of having potions at once is 5
         - Started developing first cave location
+Day 6 - Rest day
 Day 7 (v0.14.1)
         - Fixed logic issues with loot chest drop chance conditions
         - Replaced rand random number generation by a better one (mt19937) which has a much higher randomization quality + updates
@@ -82,6 +83,17 @@ Day 13 (v0.22)
         - Fixed inventoryCheck relying on the shopitems.at(i) order (which is not relevant anymore, since we've got multiple consumables and the first that is bought is not always the first in the shopitems list)
         - wrapped codeblock responsible for consumable items purchasing inside function buyConsumable
           (used bool function approach to compensate the inability to use loop control statements inside buyConsumable, since function's body obviously have no idea about the loop outside the function
+Day 14 (v0.22.1)
+        - Started restructuring shop system.
+Day 15 (v0.23)
+        - Restructured shop and inventory system
+        - Removed hardcoded buy messages and replaced them by adaptive variables messages
+        - Implemented Sell option inside shopArea (Now shopArea is no longer a single lobby but divided into Buy and Sell lobbies) (Item sell price represents 50% of items initial price)
+        - Created the upgrade system. Damage and Maximum Health values can be upgraded
+        - Wrapped upgrade stat system into upgradeStat function (Created two overloaded functions to handle different cases when player member is an integer or a float)
+        - Fixed consumable items preventing weapon equipment
+        
+        
         
 
 
